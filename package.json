@@ -1,0 +1,25 @@
+{
+  "name": "iconfoundationtest1",
+  "version": "1.0.0",
+  "description": "Icon Foundation Sample Project",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --watch --colors --progress",
+    "bundle": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^2.1.5"
+  }
+}
