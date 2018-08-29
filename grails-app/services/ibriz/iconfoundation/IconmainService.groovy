@@ -1,4 +1,4 @@
-package iconfoundationtest1
+package ibriz.iconfoundation
 
 import foundation.icon.icx.*
 import foundation.icon.icx.data.Address

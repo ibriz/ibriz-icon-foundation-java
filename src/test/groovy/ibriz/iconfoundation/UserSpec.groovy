@@ -1,9 +1,9 @@
-package iconfoundationtest1
+package ibriz.iconfoundation
 
-import grails.testing.services.ServiceUnitTest
+import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class IconmainServiceSpec extends Specification implements ServiceUnitTest<IconmainService>{
+class UserSpec extends Specification implements DomainUnitTest<User> {
 
     def setup() {
     }

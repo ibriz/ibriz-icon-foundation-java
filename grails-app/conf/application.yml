@@ -2,7 +2,7 @@
 grails:
     profile: web
     codegen:
-        defaultPackage: iconfoundationtest1
+        defaultPackage: ibriz.iconfoundation
     spring:
         transactionManagement:
             proxies: false

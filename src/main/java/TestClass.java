@@ -22,7 +22,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class TestClass {
     public static void main(String[] args) {
         String URL = "http://192.168.1.9:9000/api/v3";
-        Address scoreAddress = new Address("cx02b13428a8aef265fbaeeb37394d3ae8727f7a19");
+        Address scoreAddress = new Address("cx0bce5bfe899c4beec7ea93f2000e16351191017e");
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .build();
         IconService iconService = new IconService(new HttpProvider(httpClient, URL));
@@ -30,7 +30,7 @@ public class TestClass {
         Block block = null;
         try {
             block = iconService.getBlock(height).execute();
-            System.out.println("block:" + block);
+            System.out.println("block:" + block.toString());
 
 
             BigInteger totalSupply = iconService.getTotalSupply().execute();
@@ -64,7 +64,7 @@ public class TestClass {
                     .build();
 
             RpcItem result = iconService.query(call).execute();
-            System.out.println(fromAddress+ " :result:"+result.asInteger());
+            System.out.println(firstAddress+ " :result:"+result.asInteger());
 
 
 
@@ -79,7 +79,7 @@ public class TestClass {
                     .build();
 
             RpcItem result1 = iconService.query(call1).execute();
-            System.out.println(fromAddress+ " :result:"+result1.asInteger());
+            System.out.println(secondAddress+ " :result:"+result1.asInteger());
 //            RpcObject params = new RpcObject.Builder()
 //                    .put("_owner", new RpcValue(fromAddress))
 //                    .build();

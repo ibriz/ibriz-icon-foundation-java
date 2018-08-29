@@ -1,4 +1,4 @@
-package iconfoundationtest1
+package ibriz.iconfoundation
 
 class UrlMappings {
 

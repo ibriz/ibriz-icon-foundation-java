@@ -1,4 +1,4 @@
-package iconfoundationtest1
+package ibriz.iconfoundation
 
 import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification

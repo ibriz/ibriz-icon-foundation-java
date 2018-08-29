@@ -1,4 +1,4 @@
-package iconfoundationtest1
+package ibriz.iconfoundation
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration

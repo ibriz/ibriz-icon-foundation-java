@@ -11,7 +11,7 @@ buildscript {
 }
 
 version "0.1"
-group "iconfoundationtest1"
+group "ibriz-icon-foundation-java"
 
 apply plugin:"eclipse"
 apply plugin:"idea"

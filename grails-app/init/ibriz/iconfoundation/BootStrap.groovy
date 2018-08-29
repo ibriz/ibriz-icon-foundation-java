@@ -1,12 +1,6 @@
-package iconfoundationtest1
+package ibriz.iconfoundation
 
-import foundation.icon.icx.IconService
 import foundation.icon.icx.KeyWallet
-import foundation.icon.icx.Wallet
-import foundation.icon.icx.transport.http.HttpProvider
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import org.web3j.crypto.CipherException
 
 class BootStrap {
 

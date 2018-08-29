@@ -1,4 +1,4 @@
-package iconfoundationtest1
+package ibriz.iconfoundation
 
 import foundation.icon.icx.KeyWallet
 
@@ -13,7 +13,7 @@ class IconmainController {
 
     Map<String, String> scoreMap = new HashMap<String, String>() {
         {
-            put("MNT", "cx02b13428a8aef265fbaeeb37394d3ae8727f7a19")
+            put("MNT", "cxb8f2c9ba48856df2e889d1ee30ff6d2e002651cf")
         }
     }
 
