@@ -159,14 +159,14 @@ public class TestTransaction2 {
                 .put("_owner", new RpcValue(firstAddress))
                 .build();
 
-        IcxCall<RpcItem> call = new IcxCall.Builder()
+        Call<RpcItem> call = new Call.Builder()
                 .from( firstAddress)
                 .to(new Address(scoreAddress))
                 .method("get_tokens_of_owner")
                 .params(params)
                 .build();
 
-        RpcItem result = iconService.query(call).execute();
+        RpcItem result = iconService.call(call).execute();
         System.out.println(firstAddress+ " :result:"+result.asString());
     }
 
@@ -179,15 +179,15 @@ public class TestTransaction2 {
 //        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
 
 
-//        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
-//        System.out.println("\n=======================================\n");
-//        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
+        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
+        System.out.println("\n=======================================\n");
+        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
         System.out.println("\n=======================================\n");
         System.out.println("||| Approving the transaction");
-//        new TestTransaction2().approveTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "1");
+        new TestTransaction2().approveTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "1");
         System.out.println("\n=======================================\n");
         System.out.println("||| Processing the transaction");
-//        new TestTransaction2().sendTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "1");
+        new TestTransaction2().sendTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "1");
         System.out.println("\n=======================================\n");
         new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
         System.out.println("\n=======================================\n");

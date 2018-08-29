@@ -56,20 +56,20 @@ public class TestClass {
                     .put("_owner", new RpcValue(firstAddress))
                     .build();
 
-            IcxCall<RpcItem> call = new IcxCall.Builder()
+            Call<RpcItem> call = new Call.Builder()
                     .from( firstAddress)
                     .to(scoreAddress)
                     .method("balanceOf")
                     .params(params)
                     .build();
 
-            RpcItem result = iconService.query(call).execute();
+            RpcItem result = iconService.call(call).execute();
             System.out.println(firstAddress+ " :result:"+result.asInteger());
 
 
 
             Address secondAddress = new Address("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
-            IcxCall<RpcItem> call1 = new IcxCall.Builder()
+            Call<RpcItem> call1 = new Call.Builder()
                     .from( secondAddress)
                     .to(scoreAddress)
                     .method("balanceOf")
@@ -78,7 +78,7 @@ public class TestClass {
                             .build())
                     .build();
 
-            RpcItem result1 = iconService.query(call1).execute();
+            RpcItem result1 = iconService.call(call1).execute();
             System.out.println(secondAddress+ " :result:"+result1.asInteger());
 //            RpcObject params = new RpcObject.Builder()
 //                    .put("_owner", new RpcValue(fromAddress))

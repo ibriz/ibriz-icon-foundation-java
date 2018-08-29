@@ -54,13 +54,13 @@ class IconmainService {
         RpcObject params = new RpcObject.Builder()
                 .put("_owner", new RpcValue(currentAddress))
                 .build();
-        IcxCall<RpcItem> call1 = new IcxCall.Builder()
+        Call<RpcItem> call1 = new Call.Builder()
                 .from(currentAddress)
                 .to(scoreAddress)
                 .method("balanceOf")
                 .params(params)
                 .build();
-        RpcItem result = iconService.query(call1).execute();
+        RpcItem result = iconService.call(call1).execute();
         result.asInteger()
     }
 

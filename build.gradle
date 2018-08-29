@@ -58,7 +58,7 @@ dependencies {
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
 
-    implementation 'foundation.icon:icon-sdk:0.9.3'
+    implementation 'foundation.icon:icon-sdk:0.9.4'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 }
