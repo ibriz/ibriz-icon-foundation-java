@@ -1,12 +1,11 @@
 import foundation.icon.icx.*;
 import foundation.icon.icx.data.*;
 import foundation.icon.icx.transport.http.HttpProvider;
+import foundation.icon.icx.transport.jsonrpc.*;
 import foundation.icon.icx.transport.jsonrpc.Request;
-import foundation.icon.icx.transport.jsonrpc.RpcItem;
-import foundation.icon.icx.transport.jsonrpc.RpcObject;
-import foundation.icon.icx.transport.jsonrpc.RpcValue;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.grails.web.json.JSONObject;
 import org.web3j.crypto.CipherException;
 
 import java.io.File;
@@ -160,14 +159,105 @@ public class TestTransaction2 {
                 .build();
 
         Call<RpcItem> call = new Call.Builder()
-                .from( firstAddress)
+                .from(firstAddress)
                 .to(new Address(scoreAddress))
                 .method("get_tokens_of_owner")
                 .params(params)
                 .build();
 
         RpcItem result = iconService.call(call).execute();
-        System.out.println(firstAddress+ " :result:"+result.asString());
+        System.out.println(firstAddress + " :result:" + result.asString());
+    }
+
+    class Idol {
+        String name;
+        BigInteger age;
+        String gender;
+        String ipfs_handle;
+
+        public Idol(String name, BigInteger age, String gender, String ipfs_handle) {
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+            this.ipfs_handle = ipfs_handle;
+        }
+
+        @Override
+        public String toString() {
+            return new JSONObject().put("name", name)
+                    .put("age", age)
+                    .put("gender", gender)
+                    .put("ipfs_handle", ipfs_handle).toString();
+        }
+    }
+    public void getTokenInfo(String tokenId) throws IOException {
+        Address firstAddress = new Address("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
+        String scoreAddress = "cx0bce5bfe899c4beec7ea93f2000e16351191017e";
+
+        RpcObject params = new RpcObject.Builder()
+                .put("_tokenId", new RpcValue(tokenId))
+                .build();
+
+        Call<RpcItem> call = new Call.Builder()
+                .from(firstAddress)
+                .to(new Address(scoreAddress))
+                .method("get_idol")
+                .params(params)
+                .build();
+
+        RpcItem result = iconService.call(call).execute();
+
+        System.out.println(firstAddress + " :result:" + result.asString());
+    }
+
+    public void getTokenInfoConverter(String tokenId) throws IOException {
+        Address firstAddress = new Address("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
+        String scoreAddress = "cx0bce5bfe899c4beec7ea93f2000e16351191017e";
+
+        RpcObject params = new RpcObject.Builder()
+                .put("_tokenId", new RpcValue(tokenId))
+                .build();
+
+        Call<Idol> call = new Call.Builder()
+                .from(firstAddress)
+                .to(new Address(scoreAddress))
+                .method("get_idol")
+                .params(params)
+                .buildWith(Idol.class);
+
+        iconService.addConverterFactory(new RpcConverter.RpcConverterFactory() {
+            @Override
+            public RpcConverter create(Class type) {
+                if (type.isAssignableFrom(Idol.class)) {
+                    return new RpcConverter<Idol>() {
+                        @Override
+                        public Idol convertTo(RpcItem object) {
+                            // Unpacking from RpcItem to the user defined class
+                            String name = object.asObject().getItem("name").asString();
+                            BigInteger age = object.asObject().getItem("age").asInteger();
+                            String gender = object.asObject().getItem("gender").asString();
+                            String ipfs_handle = object.asObject().getItem("ipfs_handle").asString();
+                            return new Idol(name, age, gender, ipfs_handle);
+                        }
+
+                        @Override
+                        public RpcItem convertFrom(Idol person) {
+                            // Packing from the user defined class to RpcItem
+                            return new RpcObject.Builder()
+                                    .put("name", new RpcValue(person.name))
+                                    .put("age", new RpcValue(person.age))
+                                    .put("gender", new RpcValue(person.gender))
+                                    .put("ipfs_handle", new RpcValue(person.ipfs_handle))
+                                    .build();
+                        }
+                    };
+                }
+                return null;
+            }
+        });
+        Idol result = iconService.call(call).execute();
+
+        System.out.println(firstAddress + " :result:" + result.toString());
     }
 
     public static void main(String[] args) throws IOException {
@@ -179,20 +269,21 @@ public class TestTransaction2 {
 //        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
 
 
-        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
-        System.out.println("\n=======================================\n");
-        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
-        System.out.println("\n=======================================\n");
-        System.out.println("||| Approving the transaction");
-        new TestTransaction2().approveTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "1");
-        System.out.println("\n=======================================\n");
-        System.out.println("||| Processing the transaction");
-        new TestTransaction2().sendTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "1");
-        System.out.println("\n=======================================\n");
-        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
-        System.out.println("\n=======================================\n");
-        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
-        System.out.println("\n=======================================\n");
+//        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
+//        System.out.println("\n=======================================\n");
+//        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
+//        System.out.println("\n=======================================\n");
+//        System.out.println("||| Approving the transaction");
+//        new TestTransaction2().approveTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "462f3042-ac4a-11e8-8228-000c29be104e");
+//        System.out.println("\n=======================================\n");
+//        System.out.println("||| Processing the transaction");
+//        new TestTransaction2().sendTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "462f3042-ac4a-11e8-8228-000c29be104e");
+//        System.out.println("\n=======================================\n");
+//        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
+//        System.out.println("\n=======================================\n");
+//        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
+//        System.out.println("\n=======================================\n");
+        new TestTransaction2().getTokenInfo("462f3042-ac4a-11e8-8228-000c29be104e");
     }
 
 }
