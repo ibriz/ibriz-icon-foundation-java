@@ -51,25 +51,17 @@
 
 <div id="content" role="main">
     <section class="row colset-2-its">
-        <b>Owner's Address:</b> ${address}<br/>
-        <b>To Address:</b> ${toAddress}<br/>
-        <b>SCORE Address:</b> ${scoreAddress}<br/>
-        <b>Amount Transfer:</b> ${transferAmount}<br/>
-        <b>Transaction Hash:</b> ${transactionHash}<br/>
-        <b>Token Symbol:</b> ${tokenType}<br/>
-        <b>Remaining Balance:</b> ${remainingBalance}<br/>
-        <b>Initial Balance:</b> ${tokenBalance}<br/>
-        <b>ICX Balance:</b> ${ICXbalance}<br/>
-        <b>List of Remaining Tokens:</b><br/>
-        <g:each var="token" in="${tokenList}">
-            <b>TokenId: </b><a href='<g:createLink controller="iconmain" action="checkTokenDetails"
-                                                   params="${[address: address, tokenType: 'IDOL', tokenId: token.tokenId ]}"/>'>${token.tokenId}</a><br/>
-            <b>Age: </b>${token.age}<br/>
-            <b>Gender: </b>${token.gender}<br/>
-            <b>Ipfs Handle: </b>${token.ipfs_handle}<br/>
-            <b>Token Owner: </b>${token.owner}<br/>
-            <hr/>
-        </g:each><br/>
+        <g:form controller="iconmain" action="checkAccountPage">
+            <b>Owner's Address:</b> ${address}<br/>
+            <b>SCORE Address (Current):</b> ${scoreAddress}<br/>
+            <b>Token Symbol (Current):</b> ${tokenType}<br/>
+            <label>Check Account:</label>
+            <g:textField name="address" style="width: 500px"/><br/>
+            <label>Token Type:</label>
+            <g:select name="tokenType" from="${scoreMap.keySet()}"/><br/>
+            <g:actionSubmit value="Check Account"/>
+        </g:form>
+
     </section>
 </div>
 

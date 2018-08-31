@@ -14,9 +14,21 @@
            aria-expanded="false">ICON Operations <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li>
-                <a href='<g:createLink controller="iconmain" action="myWallet" params="${[address: address, tokenType: tokenType]}"/>'>My Wallet</a>
+                <a href='<g:createLink controller="iconmain" action="checkAccountPage"
+                                       params="${[address: address, tokenType: 'MNT']}"/>'>My Wallet (MNT)</a>
             </li>
-            <li>  <a href='<g:createLink controller="iconmain" action="transferToken" params="${[address: address, tokenType: tokenType]}"/>'>Transfer</a></li>
+            <li>
+                <a href='<g:createLink controller="iconmain" action="checkAccountPage"
+                                       params="${[address: address, tokenType: 'IDOL']}"/>'>My Wallet (IDOL)</a>
+            </li>
+            <li>
+                <a href='<g:createLink controller="iconmain" action="transferToken"
+                                       params="${[address: address, tokenType: 'MNT']}"/>'>Transfer Sample Token (MNT)</a>
+            </li>
+            <li>
+                <a href='<g:createLink controller="iconmain" action="transferIdolToken"
+                                       params="${[address: address, tokenType: 'IDOL']}"/>'>Transfer Idol Token (IDOL)</a>
+            </li>
             <li role="separator" class="divider"></li>
         </ul>
     </li>

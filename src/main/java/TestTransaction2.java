@@ -1,19 +1,22 @@
+import com.google.gson.Gson;
 import foundation.icon.icx.*;
-import foundation.icon.icx.data.*;
+import foundation.icon.icx.data.Address;
+import foundation.icon.icx.data.Bytes;
 import foundation.icon.icx.transport.http.HttpProvider;
-import foundation.icon.icx.transport.jsonrpc.*;
-import foundation.icon.icx.transport.jsonrpc.Request;
+import foundation.icon.icx.transport.jsonrpc.RpcConverter;
+import foundation.icon.icx.transport.jsonrpc.RpcItem;
+import foundation.icon.icx.transport.jsonrpc.RpcObject;
+import foundation.icon.icx.transport.jsonrpc.RpcValue;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.grails.web.json.JSONArray;
 import org.grails.web.json.JSONObject;
 import org.web3j.crypto.CipherException;
 
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
+import java.util.Random;
 
 
 public class TestTransaction2 {
@@ -126,11 +129,13 @@ public class TestTransaction2 {
         Address ownerAddress = wallet.getAddress();
         String scoreAddress = "cx0bce5bfe899c4beec7ea93f2000e16351191017e";
         String toAddStr = "hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31"; // second address where the amount is being transfered
+        Random r = new Random();
+        int number =  r.nextInt((10 - 1) + 1) + 1;
         RpcObject params = new RpcObject.Builder()
-                .put("_name", new RpcValue("Sagar"))
+                .put("_name", new RpcValue("Sagar"+ number))
                 .put("_age", new RpcValue("10"))
                 .put("_gender", new RpcValue("M"))
-                .put("_ipfs_handle", new RpcValue("1000"))
+                .put("_ipfs_handle", new RpcValue("1000"+ number + number))
                 .build();
 
         Transaction transaction = TransactionBuilder.of(networkId)
@@ -167,6 +172,13 @@ public class TestTransaction2 {
 
         RpcItem result = iconService.call(call).execute();
         System.out.println(firstAddress + " :result:" + result.asString());
+
+        JSONObject obj = new JSONObject(result.asString());
+        JSONArray arr = obj.getJSONArray("idols");
+        for (Object o : arr) {
+            System.out.println("o.toString() = " + o.toString());
+            System.out.println(getTokenInfo(o.toString()));
+        }
     }
 
     class Idol {
@@ -174,6 +186,38 @@ public class TestTransaction2 {
         BigInteger age;
         String gender;
         String ipfs_handle;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public BigInteger getAge() {
+            return age;
+        }
+
+        public void setAge(BigInteger age) {
+            this.age = age;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+
+        public String getIpfs_handle() {
+            return ipfs_handle;
+        }
+
+        public void setIpfs_handle(String ipfs_handle) {
+            this.ipfs_handle = ipfs_handle;
+        }
 
         public Idol(String name, BigInteger age, String gender, String ipfs_handle) {
             this.name = name;
@@ -190,7 +234,8 @@ public class TestTransaction2 {
                     .put("ipfs_handle", ipfs_handle).toString();
         }
     }
-    public void getTokenInfo(String tokenId) throws IOException {
+
+    public String getTokenInfo(String tokenId) throws IOException {
         Address firstAddress = new Address("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
         String scoreAddress = "cx0bce5bfe899c4beec7ea93f2000e16351191017e";
 
@@ -208,6 +253,9 @@ public class TestTransaction2 {
         RpcItem result = iconService.call(call).execute();
 
         System.out.println(firstAddress + " :result:" + result.asString());
+        Idol idol = new Gson().fromJson(result.asString(), Idol.class);
+        return String.format("Address (%s) => Name: %s Age: %d Gender: %s ", firstAddress, idol.getName(),
+                idol.getAge(), idol.getGender());
     }
 
     public void getTokenInfoConverter(String tokenId) throws IOException {
@@ -264,9 +312,11 @@ public class TestTransaction2 {
 //        new TestTransaction2().createToken();
 //        new TestTransaction2().createToken();
 //        new TestTransaction2().createToken();
+//        new TestTransaction2().createToken();
+//        new TestTransaction2().createToken();
 
-//        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
-//        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
+        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
+        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
 
 
 //        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
@@ -283,7 +333,7 @@ public class TestTransaction2 {
 //        System.out.println("\n=======================================\n");
 //        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
 //        System.out.println("\n=======================================\n");
-        new TestTransaction2().getTokenInfo("462f3042-ac4a-11e8-8228-000c29be104e");
+//        new TestTransaction2().getTokenInfo("8a13f1fc-ac5f-11e8-8228-000c29be104e");
     }
 
 }

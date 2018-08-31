@@ -36,7 +36,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
            aria-expanded="false">About<span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href="#1">ICON Foundation</a></li>
+            <li><a href="#">ICON Foundation</a></li>
             <li><a href="#">ICON Token (ICX)</a></li>
             <li><a href="#">Sample Token</a></li>
         </ul>
@@ -51,25 +51,16 @@
 
 <div id="content" role="main">
     <section class="row colset-2-its">
-        <b>Owner's Address:</b> ${address}<br/>
-        <b>To Address:</b> ${toAddress}<br/>
-        <b>SCORE Address:</b> ${scoreAddress}<br/>
-        <b>Amount Transfer:</b> ${transferAmount}<br/>
-        <b>Transaction Hash:</b> ${transactionHash}<br/>
-        <b>Token Symbol:</b> ${tokenType}<br/>
-        <b>Remaining Balance:</b> ${remainingBalance}<br/>
-        <b>Initial Balance:</b> ${tokenBalance}<br/>
-        <b>ICX Balance:</b> ${ICXbalance}<br/>
-        <b>List of Remaining Tokens:</b><br/>
-        <g:each var="token" in="${tokenList}">
-            <b>TokenId: </b><a href='<g:createLink controller="iconmain" action="checkTokenDetails"
-                                                   params="${[address: address, tokenType: 'IDOL', tokenId: token.tokenId ]}"/>'>${token.tokenId}</a><br/>
-            <b>Age: </b>${token.age}<br/>
-            <b>Gender: </b>${token.gender}<br/>
-            <b>Ipfs Handle: </b>${token.ipfs_handle}<br/>
-            <b>Token Owner: </b>${token.owner}<br/>
-            <hr/>
-        </g:each><br/>
+            <b>Owner's Address:</b> ${address}<br/>
+            <b>SCORE Address (Current):</b> ${scoreAddress}<br/>
+            <b>Token Symbol (Current):</b> ${tokenType}<br/>
+            <b>Name: </b> ${name}<br/>
+            <b>Age: </b> ${age}<br/>
+            <b>Gender: </b> ${gender}<br/>
+            <b>IPFS Handle: </b> ${ipfs_handle}<br/>
+
+
+
     </section>
 </div>
 

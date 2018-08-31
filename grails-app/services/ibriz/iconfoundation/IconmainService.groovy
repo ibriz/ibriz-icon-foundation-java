@@ -1,5 +1,10 @@
 package ibriz.iconfoundation
 
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import foundation.icon.icx.*
 import foundation.icon.icx.data.Address
 import foundation.icon.icx.data.Bytes
@@ -9,6 +14,8 @@ import foundation.icon.icx.transport.jsonrpc.RpcObject
 import foundation.icon.icx.transport.jsonrpc.RpcValue
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.grails.web.json.JSONArray
+import org.grails.web.json.JSONObject
 
 class IconmainService {
     private IconService iconService;
@@ -47,6 +54,23 @@ class IconmainService {
         hash
     }
 
+    def getTokenBalance(String address, scoreAddressStr) {
+        Address currentAddress = new Address(address)
+        Address scoreAddress = new Address(scoreAddressStr);
+
+        RpcObject params = new RpcObject.Builder()
+                .put("_owner", new RpcValue(currentAddress))
+                .build();
+        Call<RpcItem> call1 = new Call.Builder()
+                .from(currentAddress)
+                .to(scoreAddress)
+                .method("balanceOf")
+                .params(params)
+                .build();
+        RpcItem result = iconService.call(call1).execute();
+        result.asInteger()
+    }
+
     def getTokenBalance(KeyWallet currentWallet, scoreAddressStr) {
         Address currentAddress = currentWallet.getAddress();
         Address scoreAddress = new Address(scoreAddressStr);
@@ -67,6 +91,113 @@ class IconmainService {
     def balanceOfICX(address) {
         BigInteger balance = iconService.getBalance(new Address(address)).execute();
         balance
+    }
 
+    def getAllTokensOf(String address, String scoreAddressStr) {
+        Address currentAddress = new Address(address)
+        Address scoreAddress = new Address(scoreAddressStr);
+        RpcObject params = new RpcObject.Builder()
+                .put("_owner", new RpcValue(currentAddress))
+                .build();
+
+        Call<RpcItem> call = new Call.Builder()
+                .from(currentAddress)
+                .to(scoreAddress)
+                .method("get_tokens_of_owner")
+                .params(params)
+                .build();
+
+        RpcItem result = iconService.call(call).execute();
+        System.out.println(currentAddress.toString() + " :result:" + result.asString());
+
+        def tokenList = []
+        JSONObject obj = new JSONObject(result.asString());
+        JSONArray idolTokensOfOwner = obj.getJSONArray("idols");
+        for (Object idolToken : idolTokensOfOwner) {
+            tokenList.add(getTokenInfo(address, scoreAddressStr, idolToken.toString()).put("tokenId", idolToken.toString()))
+        }
+        tokenList
+    }
+
+    def getAllTokensOf(KeyWallet currentWallet, String scoreAddressStr) throws IOException {
+        getAllTokensOf(currentWallet.getAddress().toString(), scoreAddressStr)
+    }
+
+    def getTokenInfo(String address, String scoreAddressStr, String tokenId) throws IOException {
+        Address firstAddress = new Address(address)
+
+        RpcObject params = new RpcObject.Builder()
+                .put("_tokenId", new RpcValue(tokenId))
+                .build();
+
+        Call<RpcItem> call = new Call.Builder()
+                .from(firstAddress)
+                .to(new Address(scoreAddressStr))
+                .method("get_idol")
+                .params(params)
+                .build();
+
+        RpcItem result = iconService.call(call).execute();
+        new JSONObject(result.asString())
+//        System.out.println(firstAddress.toString() + " :result:" + result.asString());
+//        Idol idol = new Gson().fromJson(result.asString(), Idol.class);
+//        return String.format("Address (%s) => Name: %s Age: %d Gender: %s ", firstAddress.toString(), idol.getName(),
+//                idol.getAge(), idol.getGender());
+    }
+
+    def getTokenInfo(KeyWallet currentWallet, String scoreAddressStr, String tokenId) throws IOException {
+        getTokenInfo(currentWallet.getAddress().toString(), scoreAddressStr, tokenId)
+    }
+
+    def approveTransaction(KeyWallet currentWallet, String scoreAddressStr, String toAddress, String tokenId) throws IOException {
+        BigInteger networkId = new BigInteger("3");
+
+        long timestamp = System.currentTimeMillis() * 1000L;
+        String toAddStr = toAddress; // second address where the amount is being transfered
+        RpcObject params = new RpcObject.Builder()
+                .put("_to", new RpcValue(toAddStr))
+                .put("_tokenId", new RpcValue(tokenId))
+                .build();
+
+        Transaction transaction = TransactionBuilder.of(networkId)
+                .from(currentWallet.getAddress())
+                .to(new Address(scoreAddressStr))
+                .stepLimit(new BigInteger("10000"))
+                .timestamp(new BigInteger(Long.toString(timestamp)))
+                .nonce(new BigInteger("10000"))
+                .call("approve")
+                .params(params)
+                .build();
+
+        SignedTransaction signedTransaction = new SignedTransaction(transaction, currentWallet);
+        Bytes hash = iconService.sendTransaction(signedTransaction).execute();
+        System.out.println("txHash:" + hash);
+        hash
+    }
+
+    def sendTransaction(KeyWallet currentWallet, String scoreAddressStr, String toAddress, String tokenId) throws IOException {
+        BigInteger networkId = new BigInteger("3");
+
+        long timestamp = System.currentTimeMillis() * 1000L;
+        String toAddStr = toAddress; // second address where the amount is being transfered
+        RpcObject params = new RpcObject.Builder()
+                .put("_to", new RpcValue(toAddStr))
+                .put("_tokenId", new RpcValue(tokenId))
+                .build();
+
+        Transaction transaction = TransactionBuilder.of(networkId)
+                .from(currentWallet.getAddress())
+                .to(new Address(scoreAddressStr))
+                .stepLimit(new BigInteger("10000"))
+                .timestamp(new BigInteger(Long.toString(timestamp)))
+                .nonce(new BigInteger("10000"))
+                .call("transfer")
+                .params(params)
+                .build();
+
+        SignedTransaction signedTransaction = new SignedTransaction(transaction, currentWallet);
+        Bytes hash = iconService.sendTransaction(signedTransaction).execute();
+        System.out.println("txHash:" + hash);
+        hash
     }
 }

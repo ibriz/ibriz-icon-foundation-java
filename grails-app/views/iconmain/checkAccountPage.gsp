@@ -48,19 +48,15 @@
         <asset:image src="icon_logo.svg" class="grails-logo"/>
     </div>
 </div>
-
 <div id="content" role="main">
     <section class="row colset-2-its">
         <b>Owner's Address:</b> ${address}<br/>
-        <b>To Address:</b> ${toAddress}<br/>
         <b>SCORE Address:</b> ${scoreAddress}<br/>
-        <b>Amount Transfer:</b> ${transferAmount}<br/>
-        <b>Transaction Hash:</b> ${transactionHash}<br/>
+        <b>Token Balance:</b> ${tokenBalance}<br/>
         <b>Token Symbol:</b> ${tokenType}<br/>
-        <b>Remaining Balance:</b> ${remainingBalance}<br/>
-        <b>Initial Balance:</b> ${tokenBalance}<br/>
-        <b>ICX Balance:</b> ${ICXbalance}<br/>
-        <b>List of Remaining Tokens:</b><br/>
+        <b>ICX Balance:</b> ${ICXbalance}<br/><hr/>
+        <b>List of Tokens:</b><br/>
+        <hr/>
         <g:each var="token" in="${tokenList}">
             <b>TokenId: </b><a href='<g:createLink controller="iconmain" action="checkTokenDetails"
                                                    params="${[address: address, tokenType: 'IDOL', tokenId: token.tokenId ]}"/>'>${token.tokenId}</a><br/>
