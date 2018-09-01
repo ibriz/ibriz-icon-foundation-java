@@ -1,23 +1,18 @@
+package ibriz.testmodules;
 
-import foundation.icon.icx.*;
-import foundation.icon.icx.data.*;
+import foundation.icon.icx.Call;
+import foundation.icon.icx.IconService;
+import foundation.icon.icx.data.Address;
+import foundation.icon.icx.data.Block;
 import foundation.icon.icx.transport.http.HttpProvider;
-import foundation.icon.icx.transport.jsonrpc.Request;
 import foundation.icon.icx.transport.jsonrpc.RpcItem;
 import foundation.icon.icx.transport.jsonrpc.RpcObject;
 import foundation.icon.icx.transport.jsonrpc.RpcValue;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
-import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 public class TestClass {
     public static void main(String[] args) {
@@ -48,8 +43,8 @@ public class TestClass {
 
 
             /*
-            * BALANCE OF CONTRACT
-            * */
+             * BALANCE OF CONTRACT
+             * */
             Address firstAddress = new Address("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
 
             RpcObject params = new RpcObject.Builder()
@@ -57,20 +52,19 @@ public class TestClass {
                     .build();
 
             Call<RpcItem> call = new Call.Builder()
-                    .from( firstAddress)
+                    .from(firstAddress)
                     .to(scoreAddress)
                     .method("balanceOf")
                     .params(params)
                     .build();
 
             RpcItem result = iconService.call(call).execute();
-            System.out.println(firstAddress+ " :result:"+result.asInteger());
-
+            System.out.println(firstAddress + " :result:" + result.asInteger());
 
 
             Address secondAddress = new Address("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
             Call<RpcItem> call1 = new Call.Builder()
-                    .from( secondAddress)
+                    .from(secondAddress)
                     .to(scoreAddress)
                     .method("balanceOf")
                     .params(new RpcObject.Builder()
@@ -79,7 +73,7 @@ public class TestClass {
                     .build();
 
             RpcItem result1 = iconService.call(call1).execute();
-            System.out.println(secondAddress+ " :result:"+result1.asInteger());
+            System.out.println(secondAddress + " :result:" + result1.asInteger());
 //            RpcObject params = new RpcObject.Builder()
 //                    .put("_owner", new RpcValue(fromAddress))
 //                    .build();
@@ -161,7 +155,7 @@ public class TestClass {
             // Generates a wallet.
 //            try {
 //                Wallet wallet = KeyWallet.create();
-                // Loads a wallet from the private key.
+            // Loads a wallet from the private key.
 //                Wallet wallet = KeyWallet.load(new Bytes("0x0000"));
 
 // Loads a wallet from the key store file.
@@ -171,7 +165,7 @@ public class TestClass {
 // Stores the keystore on the file path.
 //                File dir = new File(".");
 //                KeyStoreWallet.store(wallet, "password", dir); // throw exception if an error exists.
-                // sending icx
+            // sending icx
 //                Transaction transaction = TransactionBuilder.of(new BigInteger("3"))
 //                        .from(wallet.getAddress())
 //                        .to(scoreAddress)

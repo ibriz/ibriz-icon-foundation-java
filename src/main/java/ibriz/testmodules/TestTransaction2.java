@@ -1,3 +1,5 @@
+package ibriz.testmodules;
+
 import com.google.gson.Gson;
 import foundation.icon.icx.*;
 import foundation.icon.icx.data.Address;
@@ -48,6 +50,34 @@ public class TestTransaction2 {
         } catch (CipherException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+//        new ibriz.testmodules.TestTransaction2().createToken();
+//        new ibriz.testmodules.TestTransaction2().createToken();
+//        new ibriz.testmodules.TestTransaction2().createToken();
+//        new ibriz.testmodules.TestTransaction2().createToken();
+//        new ibriz.testmodules.TestTransaction2().createToken();
+
+        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
+        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
+
+
+//        new ibriz.testmodules.TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
+//        System.out.println("\n=======================================\n");
+//        new ibriz.testmodules.TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
+//        System.out.println("\n=======================================\n");
+//        System.out.println("||| Approving the transaction");
+//        new ibriz.testmodules.TestTransaction2().approveTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "462f3042-ac4a-11e8-8228-000c29be104e");
+//        System.out.println("\n=======================================\n");
+//        System.out.println("||| Processing the transaction");
+//        new ibriz.testmodules.TestTransaction2().sendTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "462f3042-ac4a-11e8-8228-000c29be104e");
+//        System.out.println("\n=======================================\n");
+//        new ibriz.testmodules.TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
+//        System.out.println("\n=======================================\n");
+//        new ibriz.testmodules.TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
+//        System.out.println("\n=======================================\n");
+//        new ibriz.testmodules.TestTransaction2().getTokenInfo("8a13f1fc-ac5f-11e8-8228-000c29be104e");
     }
 
     public void sendTransaction(String toAddress, String token_id) throws IOException {
@@ -130,12 +160,12 @@ public class TestTransaction2 {
         String scoreAddress = "cx0bce5bfe899c4beec7ea93f2000e16351191017e";
         String toAddStr = "hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31"; // second address where the amount is being transfered
         Random r = new Random();
-        int number =  r.nextInt((10 - 1) + 1) + 1;
+        int number = r.nextInt((10 - 1) + 1) + 1;
         RpcObject params = new RpcObject.Builder()
-                .put("_name", new RpcValue("Sagar"+ number))
+                .put("_name", new RpcValue("Sagar" + number))
                 .put("_age", new RpcValue("10"))
                 .put("_gender", new RpcValue("M"))
-                .put("_ipfs_handle", new RpcValue("1000"+ number + number))
+                .put("_ipfs_handle", new RpcValue("1000" + number + number))
                 .build();
 
         Transaction transaction = TransactionBuilder.of(networkId)
@@ -178,60 +208,6 @@ public class TestTransaction2 {
         for (Object o : arr) {
             System.out.println("o.toString() = " + o.toString());
             System.out.println(getTokenInfo(o.toString()));
-        }
-    }
-
-    class Idol {
-        String name;
-        BigInteger age;
-        String gender;
-        String ipfs_handle;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public BigInteger getAge() {
-            return age;
-        }
-
-        public void setAge(BigInteger age) {
-            this.age = age;
-        }
-
-        public String getGender() {
-            return gender;
-        }
-
-        public void setGender(String gender) {
-            this.gender = gender;
-        }
-
-        public String getIpfs_handle() {
-            return ipfs_handle;
-        }
-
-        public void setIpfs_handle(String ipfs_handle) {
-            this.ipfs_handle = ipfs_handle;
-        }
-
-        public Idol(String name, BigInteger age, String gender, String ipfs_handle) {
-            this.name = name;
-            this.age = age;
-            this.gender = gender;
-            this.ipfs_handle = ipfs_handle;
-        }
-
-        @Override
-        public String toString() {
-            return new JSONObject().put("name", name)
-                    .put("age", age)
-                    .put("gender", gender)
-                    .put("ipfs_handle", ipfs_handle).toString();
         }
     }
 
@@ -308,32 +284,58 @@ public class TestTransaction2 {
         System.out.println(firstAddress + " :result:" + result.toString());
     }
 
-    public static void main(String[] args) throws IOException {
-//        new TestTransaction2().createToken();
-//        new TestTransaction2().createToken();
-//        new TestTransaction2().createToken();
-//        new TestTransaction2().createToken();
-//        new TestTransaction2().createToken();
+    class Idol {
+        String name;
+        BigInteger age;
+        String gender;
+        String ipfs_handle;
 
-        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
-        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
+        public Idol(String name, BigInteger age, String gender, String ipfs_handle) {
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+            this.ipfs_handle = ipfs_handle;
+        }
 
+        public String getName() {
+            return name;
+        }
 
-//        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
-//        System.out.println("\n=======================================\n");
-//        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
-//        System.out.println("\n=======================================\n");
-//        System.out.println("||| Approving the transaction");
-//        new TestTransaction2().approveTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "462f3042-ac4a-11e8-8228-000c29be104e");
-//        System.out.println("\n=======================================\n");
-//        System.out.println("||| Processing the transaction");
-//        new TestTransaction2().sendTransaction("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31", "462f3042-ac4a-11e8-8228-000c29be104e");
-//        System.out.println("\n=======================================\n");
-//        new TestTransaction2().getAllTokensOf("hx65f6e18d378b57612a28f72acb97021eaa82aa5a");
-//        System.out.println("\n=======================================\n");
-//        new TestTransaction2().getAllTokensOf("hx4873b94352c8c1f3b2f09aaeccea31ce9e90bd31");
-//        System.out.println("\n=======================================\n");
-//        new TestTransaction2().getTokenInfo("8a13f1fc-ac5f-11e8-8228-000c29be104e");
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public BigInteger getAge() {
+            return age;
+        }
+
+        public void setAge(BigInteger age) {
+            this.age = age;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+
+        public String getIpfs_handle() {
+            return ipfs_handle;
+        }
+
+        public void setIpfs_handle(String ipfs_handle) {
+            this.ipfs_handle = ipfs_handle;
+        }
+
+        @Override
+        public String toString() {
+            return new JSONObject().put("name", name)
+                    .put("age", age)
+                    .put("gender", gender)
+                    .put("ipfs_handle", ipfs_handle).toString();
+        }
     }
 
 }

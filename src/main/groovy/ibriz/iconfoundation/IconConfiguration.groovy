@@ -6,7 +6,7 @@ public class IconConfiguration {
     public static Map<String, KeyWallet> walletMap = new HashMap<>();
 
     public static final BigInteger NETWORK_ID = new BigInteger("3");
-    public static final BigInteger STEP_LIMIT =  new BigInteger("10000");
+    public static final BigInteger STEP_LIMIT = new BigInteger("10000");
     public static final BigInteger NOUNCE = new BigInteger("10000");
 
     public static Boolean hasAddress(String address) {
@@ -21,5 +21,9 @@ public class IconConfiguration {
         if (walletMap.containsKey(address))
             return walletMap.get(address)
         return null
+    }
+
+    public static Set<String> listOfAccounts() {
+        return walletMap.keySet()
     }
 }

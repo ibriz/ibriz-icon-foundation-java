@@ -10,6 +10,13 @@ public class Idol {
     String gender;
     String ipfs_handle;
 
+    public Idol(String name, BigInteger age, String gender, String ipfs_handle) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.ipfs_handle = ipfs_handle;
+    }
+
     public String getOwner() {
         return owner;
     }

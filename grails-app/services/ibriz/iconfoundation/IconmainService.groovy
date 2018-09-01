@@ -1,10 +1,5 @@
 package ibriz.iconfoundation
 
-import com.google.gson.Gson
-import com.google.gson.JsonArray
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import foundation.icon.icx.*
 import foundation.icon.icx.data.Address
 import foundation.icon.icx.data.Bytes
@@ -18,7 +13,7 @@ import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
 
 class IconmainService {
-    private IconService iconService;
+    def iconService;
 
     def load() {
         final String URL = "http://192.168.1.9:9000/api/v3";
@@ -29,7 +24,6 @@ class IconmainService {
                 .addInterceptor(logging)
                 .build();
         iconService = new IconService(new HttpProvider(httpClient, URL as String));
-
     }
 
     def transfer(KeyWallet wallet, scoreAddress, fromAddress, toAddress, value) {
@@ -172,6 +166,37 @@ class IconmainService {
         SignedTransaction signedTransaction = new SignedTransaction(transaction, currentWallet);
         Bytes hash = iconService.sendTransaction(signedTransaction).execute();
         System.out.println("txHash:" + hash);
+        hash
+    }
+
+    def createTokenTransaction(KeyWallet currentWallet, String scoreAddressStr, Idol idol) throws IOException {
+        Address ownerAddress = currentWallet.getAddress();
+        Random r = new Random();
+        int number = r.nextInt((10 - 1) + 1) + 1;
+
+        long timestamp = System.currentTimeMillis() * 1000L;
+
+        BigInteger networkId = new BigInteger("3");
+
+        RpcObject transactionParams = new RpcObject.Builder()
+                .put("_name", new RpcValue(idol.getName()))
+                .put("_age", new RpcValue(idol.getAge()))
+                .put("_gender", new RpcValue(idol.getGender()))
+                .put("_ipfs_handle", new RpcValue(idol.getIpfs_handle()))
+                .build();
+
+        Transaction transaction = TransactionBuilder.of(networkId)
+                .from(ownerAddress)
+                .to(new Address(scoreAddressStr))
+                .stepLimit(new BigInteger("10000"))
+                .timestamp(new BigInteger(Long.toString(timestamp)))
+                .nonce(new BigInteger("10000"))
+                .call("create_idol")
+                .params(transactionParams)
+                .build();
+
+        SignedTransaction signedTransaction = new SignedTransaction(transaction, currentWallet);
+        Bytes hash = iconService.sendTransaction(signedTransaction).execute();
         hash
     }
 

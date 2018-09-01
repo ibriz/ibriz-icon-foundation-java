@@ -47,15 +47,16 @@
 
 <div id="content" role="main">
     <section class="row colset-2-its">
-        <b>Owner's Address:</b> ${address}<br/>
-        <b>SCORE Address:</b> ${scoreAddress}<br/>
-        <b>Token Balance:</b> ${tokenBalance}<br/>
-        <b>Token Symbol:</b> ${tokenType}<br/>
-        <b>ICX Balance:</b> ${ICXbalance}<br/>
-        <b>List of Tokens:</b><br/>
-        <g:each var="token" in="${tokenList}">
-            <p>${token}</p>
-        </g:each><br/>
+
+        <label class="idolLabel">Owner's Address</label> ${address}<br>
+        <label class="idolLabel">SCORE Address (Current)</label> ${scoreAddress}<br/>
+        <label class="idolLabel">Token Symbol (Current)</label> ${tokenType}<br/>
+        <label class="idolLabel">Transaction Hash</label> ${txHash}<br/>
+        <label class="idolLabel">First Name</label>${fullname}<br/>
+        <label class="idolLabel">Age</label>${age}<br/>
+        <label class="idolLabel">Gender</label>${gender}<br/>
+        <label class="idolLabel">IPFS Handle</label>${ipfs_handle}<br/>
+
     </section>
 </div>
 

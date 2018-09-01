@@ -14,16 +14,12 @@
            aria-expanded="false">ICON Operations <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li>
-                <a href='<g:createLink controller="iconmain" action="checkAccountPage"
-                                       params="${[address: address, tokenType: 'MNT']}"/>'>My Wallet (MNT)</a>
+                <a href='<g:createLink controller="iconmain" action="createToken"
+                                       params="${[address: address, tokenType: 'IDOL']}"/>'>Create Token (IDOL)</a>
             </li>
             <li>
                 <a href='<g:createLink controller="iconmain" action="checkAccountPage"
                                        params="${[address: address, tokenType: 'IDOL']}"/>'>My Wallet (IDOL)</a>
-            </li>
-            <li>
-                <a href='<g:createLink controller="iconmain" action="transferToken"
-                                       params="${[address: address, tokenType: 'MNT']}"/>'>Transfer Sample Token (MNT)</a>
             </li>
             <li>
                 <a href='<g:createLink controller="iconmain" action="transferIdolToken"
@@ -36,7 +32,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
            aria-expanded="false">About<span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href="#1">ICON Foundation</a></li>
+            <li><a href="#">ICON Foundation</a></li>
             <li><a href="#">ICON Token (ICX)</a></li>
             <li><a href="#">Sample Token</a></li>
         </ul>
@@ -51,25 +47,27 @@
 
 <div id="content" role="main">
     <section class="row colset-2-its">
-        <b>Owner's Address:</b> ${address}<br/>
-        <b>To Address:</b> ${toAddress}<br/>
-        <b>SCORE Address:</b> ${scoreAddress}<br/>
-        <b>Amount Transfer:</b> ${transferAmount}<br/>
-        <b>Transaction Hash:</b> ${transactionHash}<br/>
-        <b>Token Symbol:</b> ${tokenType}<br/>
-        <b>Remaining Balance:</b> ${remainingBalance}<br/>
-        <b>Initial Balance:</b> ${tokenBalance}<br/>
-        <b>ICX Balance:</b> ${ICXbalance}<br/>
-        <b>List of Remaining Tokens:</b><br/>
-        <g:each var="token" in="${tokenList}">
-            <b>TokenId: </b><a href='<g:createLink controller="iconmain" action="checkTokenDetails"
-                                                   params="${[address: address, tokenType: 'IDOL', tokenId: token.tokenId ]}"/>'>${token.tokenId}</a><br/>
-            <b>Age: </b>${token.age}<br/>
-            <b>Gender: </b>${token.gender}<br/>
-            <b>Ipfs Handle: </b>${token.ipfs_handle}<br/>
-            <b>Token Owner: </b>${token.owner}<br/>
-            <hr/>
-        </g:each><br/>
+        <label class="idolLabel">Owner's Address:</label> ${address}<br/>
+        <label class="idolLabel">To Address:</label> ${toAddress}<br/>
+        <label class="idolLabel">SCORE Address:</label> ${scoreAddress}<br/>
+        <label class="idolLabel">Amount Transfer:</label> ${transferAmount}<br/>
+        <label class="idolLabel">Transaction Hash:</label> ${transactionHash}<br/>
+        <label class="idolLabel">Token Symbol:</label> ${tokenType}<br/>
+        <label class="idolLabel">Remaining Balance:</label> ${remainingBalance}<br/>
+        <label class="idolLabel">Initial Balance:</label> ${tokenBalance}<br/>
+        <label class="idolLabel">ICX Balance:</label> ${ICXbalance}<br/>
+
+        <p>Please wait a while before the transfer is complete</p>
+        %{--<label class="idolLabel">List of Remaining Tokens:</label><br/>--}%
+        %{--<g:each var="token" in="${tokenList}">--}%
+        %{--<label class="idolLabel">TokenId: </label><a href='<g:createLink controller="iconmain" action="checkTokenDetails"--}%
+        %{--params="${[address: address, tokenType: 'IDOL', tokenId: token.tokenId ]}"/>'>${token.tokenId}</a><br/>--}%
+        %{--<label class="idolLabel">Age: </label>${token.age}<br/>--}%
+        %{--<label class="idolLabel">Gender: </label>${token.gender}<br/>--}%
+        %{--<label class="idolLabel">Ipfs Handle: </label>${token.ipfs_handle}<br/>--}%
+        %{--<label class="idolLabel">Token Owner: </label>${token.owner}<br/>--}%
+        %{--<hr/>--}%
+        %{--</g:each><br/>--}%
     </section>
 </div>
 

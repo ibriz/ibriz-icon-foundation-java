@@ -47,15 +47,23 @@
 
 <div id="content" role="main">
     <section class="row colset-2-its">
-        <b>Owner's Address:</b> ${address}<br/>
-        <b>SCORE Address:</b> ${scoreAddress}<br/>
-        <b>Token Balance:</b> ${tokenBalance}<br/>
-        <b>Token Symbol:</b> ${tokenType}<br/>
-        <b>ICX Balance:</b> ${ICXbalance}<br/>
-        <b>List of Tokens:</b><br/>
-        <g:each var="token" in="${tokenList}">
-            <p>${token}</p>
-        </g:each><br/>
+        <g:form controller="iconmain" action="checkAccountPage">
+
+            <label class="idolLabel">Owner's Address</label> ${address}<br>
+            <label class="idolLabel">SCORE Address (Current)</label> ${scoreAddress}<br/>
+            <label class="idolLabel">Token Symbol (Current)</label> ${tokenType}<br/>
+            <label class="idolLabel">First Name</label>
+            <g:textField class="idolInput" name="name"/><br/>
+            <label class="idolLabel">Age</label>
+            <g:textField class="idolInput" name="age"/><br/>
+            <label class="idolLabel">Gender</label>
+            <g:textField class="idolInput" name="gender"/><br/>
+            <label class="idolLabel">IPFS Handle</label>
+            <g:textField class="idolInput" name="ipfs_handle"/><br/>
+
+            <g:actionSubmit value="Create Idol Token"/>
+        </g:form>
+
     </section>
 </div>
 

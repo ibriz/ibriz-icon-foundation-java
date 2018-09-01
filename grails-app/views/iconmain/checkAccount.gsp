@@ -14,16 +14,12 @@
            aria-expanded="false">ICON Operations <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li>
-                <a href='<g:createLink controller="iconmain" action="checkAccountPage"
-                                       params="${[address: address, tokenType: 'MNT']}"/>'>My Wallet (MNT)</a>
+                <a href='<g:createLink controller="iconmain" action="createToken"
+                                       params="${[address: address, tokenType: 'IDOL']}"/>'>Create Token (IDOL)</a>
             </li>
             <li>
                 <a href='<g:createLink controller="iconmain" action="checkAccountPage"
                                        params="${[address: address, tokenType: 'IDOL']}"/>'>My Wallet (IDOL)</a>
-            </li>
-            <li>
-                <a href='<g:createLink controller="iconmain" action="transferToken"
-                                       params="${[address: address, tokenType: 'MNT']}"/>'>Transfer Sample Token (MNT)</a>
             </li>
             <li>
                 <a href='<g:createLink controller="iconmain" action="transferIdolToken"
@@ -36,7 +32,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
            aria-expanded="false">About<span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href="#1">ICON Foundation</a></li>
+            <li><a href="#">ICON Foundation</a></li>
             <li><a href="#">ICON Token (ICX)</a></li>
             <li><a href="#">Sample Token</a></li>
         </ul>
@@ -52,12 +48,12 @@
 <div id="content" role="main">
     <section class="row colset-2-its">
         <g:form controller="iconmain" action="checkAccountPage">
-            <b>Owner's Address:</b> ${address}<br/>
-            <b>SCORE Address (Current):</b> ${scoreAddress}<br/>
-            <b>Token Symbol (Current):</b> ${tokenType}<br/>
-            <label>Check Account:</label>
+            <label class="idolLabel">Owner's Address:</label> ${address}<br/>
+            <label class="idolLabel">SCORE Address (Current):</label> ${scoreAddress}<br/>
+            <label class="idolLabel">Token Symbol (Current):</label> ${tokenType}<br/>
+            <label class="idolLabel">Check Account:</label>
             <g:textField name="address" style="width: 500px"/><br/>
-            <label>Token Type:</label>
+            <label class="idolLabel">Token Type:</label>
             <g:select name="tokenType" from="${scoreMap.keySet()}"/><br/>
             <g:actionSubmit value="Check Account"/>
         </g:form>

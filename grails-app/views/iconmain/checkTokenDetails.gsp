@@ -14,16 +14,12 @@
            aria-expanded="false">ICON Operations <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li>
-                <a href='<g:createLink controller="iconmain" action="checkAccountPage"
-                                       params="${[address: address, tokenType: 'MNT']}"/>'>My Wallet (MNT)</a>
+                <a href='<g:createLink controller="iconmain" action="createToken"
+                                       params="${[address: address, tokenType: 'IDOL']}"/>'>Create Token (IDOL)</a>
             </li>
             <li>
                 <a href='<g:createLink controller="iconmain" action="checkAccountPage"
                                        params="${[address: address, tokenType: 'IDOL']}"/>'>My Wallet (IDOL)</a>
-            </li>
-            <li>
-                <a href='<g:createLink controller="iconmain" action="transferToken"
-                                       params="${[address: address, tokenType: 'MNT']}"/>'>Transfer Sample Token (MNT)</a>
             </li>
             <li>
                 <a href='<g:createLink controller="iconmain" action="transferIdolToken"
@@ -51,15 +47,13 @@
 
 <div id="content" role="main">
     <section class="row colset-2-its">
-            <b>Owner's Address:</b> ${address}<br/>
-            <b>SCORE Address (Current):</b> ${scoreAddress}<br/>
-            <b>Token Symbol (Current):</b> ${tokenType}<br/>
-            <b>Name: </b> ${name}<br/>
-            <b>Age: </b> ${age}<br/>
-            <b>Gender: </b> ${gender}<br/>
-            <b>IPFS Handle: </b> ${ipfs_handle}<br/>
-
-
+        <label class="idolLabel">Owner's Address:</label> ${address}<br/>
+        <label class="idolLabel">SCORE Address (Current):</label> ${scoreAddress}<br/>
+        <label class="idolLabel">Token Symbol (Current):</label> ${tokenType}<br/>
+        <label class="idolLabel">Name:</label> ${name}<br/>
+        <label class="idolLabel">Age:</label> ${age}<br/>
+        <label class="idolLabel">Gender:</label> ${gender}<br/>
+        <label class="idolLabel">IPFS Handle:</label> ${ipfs_handle}<br/>
 
     </section>
 </div>
