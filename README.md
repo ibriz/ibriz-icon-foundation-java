@@ -1,4 +1,4 @@
-# Idol Token (ICON Foundation)
+# iBriz | Idol Token (ICON Foundation)
 
 <img src="https://ibriz.ai/wp-content/themes/ibriz-blog/assets/images/ibriz.svg" width="80" height="80"><img src="https://icondev.io/img/logo.png" width="188" height="35">
 ### Installing **IdolToken** to tbears 
