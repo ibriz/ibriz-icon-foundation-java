@@ -70,6 +70,7 @@
             <label class="idolLabel">TokenId:</label><a
                 href='<g:createLink controller="iconmain" action="checkTokenDetails"
                                     params="${[address: address, tokenType: 'IDOL', tokenId: token.tokenId]}"/>'>${token.tokenId}</a><br/>
+            <label class="idolLabel">Name:</label>${token.name}<br/>
             <label class="idolLabel">Age:</label>${token.age}<br/>
             <label class="idolLabel">Gender:</label>${token.gender}<br/>
             <label class="idolLabel">Ipfs Handle:</label>${token.ipfs_handle}<br/>
